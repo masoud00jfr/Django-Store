@@ -3,6 +3,10 @@ from django.db import models
 # Create your models here.
 
 
+class Category(models.Model):
+    title = models.CharField(max_length=70, verbose_name='نام دسته')
+
+
 class Product(models.Model):
     name = models.CharField(max_length=70, verbose_name='نام محصول')
     description = models.TextField(verbose_name='معرفی محصول', null=True, blank=True)
@@ -10,6 +14,7 @@ class Product(models.Model):
     price = models.PositiveIntegerField(verbose_name='قیمت', null=True, blank=True)
     pub_date = models.DateField(auto_now_add=True, verbose_name='تاریخ انتشار')
     is_active = models.BooleanField(default=True, verbose_name='در دسترس')
+    category = models.ForeignKey(Category, on_delete=models.RESTRICT, verbose_name='دسته بندی')
 
     def __str__(self):
         return self.name
