@@ -1,2 +1,2 @@
-# Django-Store
-My Store
+# Django Store
+
