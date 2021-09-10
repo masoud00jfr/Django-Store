@@ -1,0 +1,2 @@
+# Django-Store
+My Store
