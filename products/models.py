@@ -14,7 +14,7 @@ class Product(models.Model):
     price = models.PositiveIntegerField(verbose_name='قیمت', null=True, blank=True)
     pub_date = models.DateField(auto_now_add=True, verbose_name='تاریخ انتشار')
     is_active = models.BooleanField(default=True, verbose_name='در دسترس')
-    category = models.ForeignKey(Category, on_delete=models.RESTRICT, verbose_name='دسته بندی')
+    category = models.ForeignKey(Category, on_delete=models.RESTRICT, related_name='product', verbose_name='دسته بندی')
 
     def __str__(self):
         return self.name
@@ -22,7 +22,7 @@ class Product(models.Model):
 
 class ProductImages(models.Model):
     name = models.CharField(max_length=20)
-    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='product_image')
     photo = models.ImageField(upload_to='products')
     is_main = models.BooleanField(default=True)
 
