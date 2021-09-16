@@ -7,6 +7,10 @@ name = "pypi"
 django = "*"
 pillow = "*"
 psycopg2 = "*"
+django-mptt = "*"
+djangorestframework = "*"
+markdown = "*"
+django-filter = "*"
 
 [dev-packages]
 

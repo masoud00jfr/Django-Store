@@ -37,6 +37,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # libraries
+    'mptt',
+    'rest_framework',
+    # my project applications
     'accounts',
     'core',
     'customers',
@@ -82,7 +86,7 @@ WSGI_APPLICATION = 'Django_Store.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'DjangoStore',
+        'NAME': 'DjangoStore2',
         'USER': 'postgres',
         'PASSWORD': 'mj9353981766',
         'HOST': 'localhost',
@@ -137,3 +141,14 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 MEDIA_URL = '/media/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+STATICFILES_DIRS = [
+    BASE_DIR / 'static'
+]
+
+AUTH_USER_MODEL = 'accounts.User'
+
+# rest framework configurations
+REST_FRAMEWORK = {
+    'DEFAULT_VERSIONING_CLASS': 'rest_framework.versioning.NamespaceVersioning',
+}

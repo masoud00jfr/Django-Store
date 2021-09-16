@@ -1,10 +1,17 @@
 from django.db import models
-
+from mptt.models import MPTTModel, TreeForeignKey
 # Create your models here.
 
 
-class Category(models.Model):
-    title = models.CharField(max_length=70, verbose_name='نام دسته')
+class Category(MPTTModel):
+    title = models.CharField(max_length=70, verbose_name='نام دسته', unique=True)
+    parent = TreeForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name='children')
+
+    class MPTTMeta:
+        order_insertion_by = ['title']
+
+    def __str__(self):
+        return self.title
 
 
 class Product(models.Model):
@@ -12,7 +19,8 @@ class Product(models.Model):
     description = models.TextField(verbose_name='معرفی محصول', null=True, blank=True)
     stock = models.PositiveIntegerField(default=1, verbose_name='موجودی کالا')
     price = models.PositiveIntegerField(verbose_name='قیمت', null=True, blank=True)
-    pub_date = models.DateField(auto_now_add=True, verbose_name='تاریخ انتشار')
+    create_at = models.DateField(auto_now_add=True, verbose_name='تاریخ انتشار')
+    modified_at = models.DateField(auto_now=True, verbose_name='آخرین تغییر')
     is_active = models.BooleanField(default=True, verbose_name='در دسترس')
     category = models.ForeignKey(Category, on_delete=models.RESTRICT, related_name='product', verbose_name='دسته بندی')
 
