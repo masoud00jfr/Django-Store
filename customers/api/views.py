@@ -1,4 +1,5 @@
 from rest_framework import status
+from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 
@@ -16,6 +17,8 @@ def register_view(request):
             data['response'] = 'successfully registered a new customer'
             data['first_name'] = account.first_name
             data['email'] = account.email
+            token = Token.objects.get(user=account).key
+            data['token'] = token
         else:
             return serializer.errors
         return Response(data)

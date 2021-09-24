@@ -13,14 +13,20 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from dj_rest_auth.views import PasswordResetConfirmView
 from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('api/', include('core.api.urls')),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+                  path('admin/', admin.site.urls),
+                  path('api/', include('core.api.urls')),
+
+                  # debug of rest-auth password reset (before: add email backend)
+                  path('rest-auth/ password/reset/confirm/<uidb64>/<token>/', PasswordResetConfirmView.as_view(),
+                       name='password_reset_confirm'),
+
+              ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 # urlpatterns += + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

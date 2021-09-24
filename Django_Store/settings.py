@@ -40,6 +40,9 @@ INSTALLED_APPS = [
     # libraries
     'mptt',
     'rest_framework',
+    'rest_framework.authtoken',
+    # dj_rest_auth is a Third party packages include login, logout, reset and change password
+    'dj_rest_auth',
     # my project applications
     'accounts',
     'core',
@@ -63,8 +66,7 @@ ROOT_URLCONF = 'Django_Store.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates']
-        ,
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -151,4 +153,13 @@ AUTH_USER_MODEL = 'accounts.User'
 # rest framework configurations
 REST_FRAMEWORK = {
     'DEFAULT_VERSIONING_CLASS': 'rest_framework.versioning.NamespaceVersioning',
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+    ]
 }
+
+LOGIN_REDIRECT_URL = 'home'
+LOGOUT_REDIRECT_URL = 'home'
+
+EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
+EMAIL_FILE_PATH = os.path.join(BASE_DIR, 'emails')
